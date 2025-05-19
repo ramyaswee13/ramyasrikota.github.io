@@ -29,18 +29,25 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       display: flex;
       justify-content: center;
+      overflow-x: auto;
       z-index: 999;
       font-weight: 600;
       padding: 15px 0;
+      scrollbar-width: none; /* Firefox */
+    }
+    nav::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
     }
     nav a {
       color: #3949ab;
       text-decoration: none;
-      margin: 0 20px;
-      padding-bottom: 3px;
+      margin: 0 18px;
+      padding-bottom: 5px;
       border-bottom: 3px solid transparent;
       transition: border-color 0.3s;
       font-size: 1rem;
+      white-space: nowrap;
+      padding: 10px 5px;
     }
     nav a.active,
     nav a:hover {
@@ -50,7 +57,7 @@
     /* Container */
     .container {
       max-width: 900px;
-      margin: 100px auto 60px;
+      margin: 110px auto 60px;
       padding: 0 20px;
     }
     h1 {
@@ -93,6 +100,7 @@
       font-size: 1.1rem;
       margin-bottom: 30px;
       color: #444;
+      word-wrap: break-word;
     }
     .contact-info strong {
       color: #3949ab;
@@ -102,6 +110,7 @@
     .contact-info a {
       color: #3949ab;
       text-decoration: none;
+      word-break: break-word;
     }
     .contact-info a:hover {
       text-decoration: underline;
@@ -140,15 +149,35 @@
     }
     /* Responsive */
     @media (max-width: 700px) {
+      nav {
+        padding: 10px 0;
+      }
       nav a {
-        margin: 0 10px;
-        font-size: 0.9rem;
+        margin: 0 12px;
+        font-size: 0.95rem;
+        padding: 12px 8px;
       }
       h1 {
         font-size: 2.2rem;
       }
       h2 {
         font-size: 1.6rem;
+      }
+      .container {
+        margin: 90px 15px 50px;
+        padding: 0 10px;
+      }
+      .contact-info strong {
+        width: 70px;
+      }
+      p, ul {
+        font-size: 0.95rem;
+      }
+      h3 {
+        font-size: 1.15rem;
+      }
+      h4 {
+        font-size: 1rem;
       }
     }
   </style>
@@ -305,7 +334,7 @@
     const navLinks = document.querySelectorAll('nav a');
 
     function onScroll() {
-      let scrollPos = window.scrollY + 70;
+      let scrollPos = window.scrollY + 80;
       let currentSectionId = sections[0].id;
 
       for (const section of sections) {
