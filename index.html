@@ -7,6 +7,8 @@
   <title>Ramya Sri Kota - Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+
+    /* Ensure all elements respect the box model */
     /* Reset & base */
     * {
       margin: 0;
@@ -20,6 +22,7 @@
       line-height: 1.6;
       background: #f5f7fa;
       color: #333;
+      overflow-x: hidden; /* Prevent horizontal scroll */
     }
 
     /* Navbar */
@@ -375,88 +378,61 @@
     }
 
 
-    /* Dark Mode Styles */
-    body.dark-mode {
-      background: #121212;
-      color: #e0e0e0;
-    }
+   
+   /* Main nav styles */
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
 
-    body.dark-mode nav {
-      background: #1f1f1f;
-      box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-    }
+/* Hamburger icon */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  position: fixed;        /* Fixed position */
+  top: 15px;              /* Distance from top */
+  left: 15px;             /* Distance from left */
+  z-index: 1000;          /* On top of navbar */
+  background: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
 
-    body.dark-mode nav a {
-      color: #bb86fc;
-      border-color: transparent;
-    }
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    z-index: 999;
+  }
 
-    body.dark-mode nav a.active,
-    body.dark-mode nav a:hover {
-      border-color: #bb86fc;
-      color: #eee;
-    }
+  .nav-links.show {
+    display: flex;
+  }
 
-    body.dark-mode .container {
-      background: #181818;
-    }
+  .hamburger {
+    display: block;
+  }
 
-    body.dark-mode h1,
-    body.dark-mode h2,
-    body.dark-mode h3,
-    body.dark-mode h4 {
-      color: #bb86fc;
-    }
+}
 
-    body.dark-mode p,
-    body.dark-mode ul,
-    body.dark-mode .contact-info {
-      color: #ccc;
-    }
-
-    body.dark-mode .skill-bar {
-      background: #333;
-    }
-
-    body.dark-mode .skill-level {
-      background: #bb86fc;
-    }
-
-    body.dark-mode .youtube-link {
-      background-color: #bb0000;
-    }
-
-    body.dark-mode .youtube-link:hover {
-      background-color: #880000;
-    }
-
-    body.dark-mode .download-btn {
-      border-color: #bb86fc;
-      color: #bb86fc;
-    }
-
-    body.dark-mode .download-btn:hover {
-      background-color: #bb86fc;
-      color: #121212;
-    }
-
-    /* Adjust animated background dots for dark mode */
-    body.dark-mode .animated-bg span {
-      background: rgba(187, 134, 252, 0.3);
-    }
   </style>
 </head>
 
 <body>
-  <nav>
-    <a href="#objective" class="active">Objective</a>
-    <a href="#education">Education</a>
-    <a href="#work">Work Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#personal">Personal Skills</a>
-    <a href="#details">Details</a>
-    <a href="#declaration">Declaration</a>
-  </nav>
 
   <div class="animated-bg">
     <span></span>
@@ -603,17 +579,20 @@
       </a>
     </p>
 
-    <nav>
-      <a href="#objective" class="active">Objective</a>
-      <a href="#education">Education</a>
-      <a href="#work">Work Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#personal">Personal Skills</a>
-      <a href="#details">Details</a>
-      <a href="#declaration">Declaration</a>
-      <a href="contact.html" class="contact-btn">Contact</a> <!-- New Contact link -->
-      <a href="#" id="dark-mode-toggle" style="cursor:pointer;">🌙 Dark Mode</a>
-    </nav>
+    
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <nav id="navbar" class="nav-links">
+        <a href="#objective" class="active">Objective</a>
+        <a href="#education">Education</a>
+        <a href="#work">Work Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#personal">Personal Skills</a>
+        <a href="#details">Details</a>
+        <a href="#declaration">Declaration</a>
+        <a href="contact.html" class="contact-btn">Contact</a>
+      </nav>
+   
+
 
 
   </div>
@@ -704,32 +683,15 @@
     const formattedDate = today.toLocaleDateString('en-GB'); // DD/MM/YYYY
     document.querySelector('.signature').innerHTML = `Place: Hyderabad<br>Date: ${formattedDate}<br>Signature: Ramya Sri Kota`;
 
-    const toggleBtn = document.getElementById('dark-mode-toggle');
-
-    toggleBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.body.classList.toggle('dark-mode');
-
-      // Optional: save preference to localStorage
-      if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('darkMode', 'enabled');
-        toggleBtn.textContent = '☀️ Light Mode';
-      } else {
-        localStorage.setItem('darkMode', 'disabled');
-        toggleBtn.textContent = '🌙 Dark Mode';
-      }
-    });
-
-    // On page load: load saved preference
-    window.addEventListener('load', () => {
-      if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        toggleBtn.textContent = '☀️ Light Mode';
-      }
-    });
-
 
   </script>
+
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById('navbar');
+    nav.classList.toggle('show');
+  }
+</script>
 
   <footer style="text-align:center; margin-top: 40px; font-size: 0.9rem; color: #666;">
     &copy; 2025 Ramya Sri Kota. All rights reserved.
