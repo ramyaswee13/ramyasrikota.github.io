@@ -7,7 +7,6 @@
   <title>Ramya Sri Kota - Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-
     /* Ensure all elements respect the box model */
     /* Reset & base */
     * {
@@ -22,7 +21,8 @@
       line-height: 1.6;
       background: #f5f7fa;
       color: #333;
-      overflow-x: hidden; /* Prevent horizontal scroll */
+      overflow-x: hidden;
+      /* Prevent horizontal scroll */
     }
 
     /* Navbar */
@@ -378,45 +378,49 @@
     }
 
 
-   
-   /* Main nav styles */
-.nav-links {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  background-color: #f9f9f9;
-  padding: 10px 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 100%;
-}
 
-/* Hamburger icon */
-.hamburger {
-  display: none;
-  font-size: 26px;
-  cursor: pointer;
-  position: fixed;        /* Fixed position */
-  top: 15px;              /* Distance from top */
-  left: 15px;             /* Distance from left */
-  z-index: 1000;          /* On top of navbar */
-  background: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-}
+    /* Main nav styles */
+    .nav-links {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      background-color: #f9f9f9;
+      padding: 10px 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 100%;
+    }
 
-@media (max-width: 768px) {
+    /* Hamburger icon */
+    .hamburger {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+      position: fixed;
+      /* Fixed position */
+      top: 15px;
+      /* Distance from top */
+      left: 15px;
+      /* Distance from left */
+      z-index: 1000;
+      /* On top of navbar */
+      background: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 768px) {
   .nav-links {
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed;   /* changed from absolute */
     top: 50px;
     left: 0;
     width: 100%;
     background-color: #f0f0f0;
     padding: 10px;
-    z-index: 999;
+    z-index: 1100;     /* higher than hamburger */
   }
 
   .nav-links.show {
@@ -427,8 +431,8 @@
     display: block;
   }
 
-}
 
+}
   </style>
 </head>
 
@@ -579,19 +583,19 @@
       </a>
     </p>
 
-    
-      <div class="hamburger" onclick="toggleMenu()">☰</div>
-      <nav id="navbar" class="nav-links">
-        <a href="#objective" class="active">Objective</a>
-        <a href="#education">Education</a>
-        <a href="#work">Work Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#personal">Personal Skills</a>
-        <a href="#details">Details</a>
-        <a href="#declaration">Declaration</a>
-        <a href="contact.html" class="contact-btn">Contact</a>
-      </nav>
-   
+
+    <div id="hamburger" class="hamburger" onclick="toggleMenu()">☰</div>
+    <nav id="navbar" class="nav-links">
+      <a href="#objective" class="active">Objective</a>
+      <a href="#education">Education</a>
+      <a href="#work">Work Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#personal">Personal Skills</a>
+      <a href="#details">Details</a>
+      <a href="#declaration">Declaration</a>
+      <a href="contact.html" class="contact-btn">Contact</a>
+    </nav>
+
 
 
 
@@ -686,12 +690,33 @@
 
   </script>
 
-<script>
-  function toggleMenu() {
-    const nav = document.getElementById('navbar');
-    nav.classList.toggle('show');
+  <script>
+     function toggleMenu() {
+    const navbar = document.getElementById("navbar");
+    const hamburger = document.getElementById("hamburger");
+
+    navbar.classList.toggle("show");
+
+    // Toggle icon
+    if (navbar.classList.contains("show")) {
+      hamburger.textContent = "✖"; // Close icon
+    } else {
+      hamburger.textContent = "☰"; // Hamburger icon
+    }
   }
-</script>
+
+  // Close menu when a link is clicked
+  document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll("#navbar a");
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("navbar").classList.remove("show");
+        document.getElementById("hamburger").textContent = "☰";
+      });
+    });
+  });
+  </script>
+
 
   <footer style="text-align:center; margin-top: 40px; font-size: 0.9rem; color: #666;">
     &copy; 2025 Ramya Sri Kota. All rights reserved.
